@@ -1,0 +1,21 @@
+Aufgabe 2
+
+	1.
+		a)
+			vater_von(johannes,andrea).	
+			\+mutter_von(helga,Kind).
+		b)
+			mutter_von(julia,klaus).
+		c)
+			vater_von(VaterVonBarbara,barbara).	
+		d)
+			mutter_von(MutterVonJulia,julia).
+		e)
+			mutter_von(Mutter,KindA);vater_von(Vater,KindB).	
+		f)
+			\+mutter_von(helga,Kind).
+		g)
+
+		h)
+			
+
