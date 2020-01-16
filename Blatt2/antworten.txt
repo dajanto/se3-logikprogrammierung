@@ -1,0 +1,52 @@
+Aufgabe 1
+
+Natürlichsprachliche Formulierung von Anfragen
+
+a)
+	vater_von(P1,X),mutter_von(X,P2).	
+	
+	P2 ist der/die EnkelIn von Großvater P1. Der oder die EnkelIn stammt von 	seiner Tochter.
+
+b)
+	P2 ist der Onkel oder die Tante von P1.
+
+c)
+	P1 und P2 sind verschwägert.	
+
+d)
+	P1 und P2 sind Stief- bzw. Halbgeschwister.
+
+
+Aufgabe 2
+
+a)
+	obj(_,efh,Straßen,_,_).
+b)
+	obj(Ident,_,_,_,Baujahr),Baujahr >= 2010.
+
+c)
+	Es wird davon ausgegangen, dass Grundstückadresse ausschlaggebend für ein Grundstück ist und nicht eine ID oder ähnliches.
+
+	obj(_,Objekttyp,Grundstückadresse,_,_),Objekttyp \= efh.
+
+d)
+
+% bew(Vorgangsnr, Objektnr, Verkaeufer, Kaeufer, Preis, Verkaufsdatum)
+
+	bew(_,Objektnr,BesitzerA,BesitzerB,_,_),bew(_,Objektnr,BesitzerB,BesitzerC,_,_).
+
+
+e)
+
+	bew(_,_,_,_,Preis,_), (\+ (bew(_,_,_,_,Preis1,_),Preis1 < Preis))
+
+Aufgabe 3
+
+kalender.pl
+
+Aufgabe 4
+
+Ein Prädikat ist eine Methode (:-).
+Eine Klausel ist eine Prädikatenbezeichnung (z.b. sort/2)
+Ein Strukt ist eine Anfrage an die Datenbank.
+

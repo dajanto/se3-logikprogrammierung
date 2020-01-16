@@ -25,3 +25,9 @@ vater_von( johannes , klaus ).
 vater_von( johannes , andrea).
 vater_von( walter , barbara ).
 vater_von( walter , magdalena ).
+
+mutter_von(birgit,inga).
+mutter_von(birgit,arne).
+mutter_von(inga,emma).
+vater_von(flo,emma).
+
