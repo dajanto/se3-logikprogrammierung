@@ -17,6 +17,9 @@ directory(10,urlaub,4,date(2008,5,23),date(2008,11,1)).
 directory(11,hochzeit,4,date(2007,12,4),date(2008,1,25)).
 directory(12,scheidung,4,date(2009,9,2),date(2009,11,5)).
 
+% Änderungsdatum-Aktualisierung
+directory(1337,springseil,8,date(2009,9,2),date(2009,11,5)).
+
 % file(FileId,DirId,Name,Size,DateCreated,DateModified)
 
 file(1,9,in_the_summertime,56,date(2007,5,2),date(2009,11,5)).
@@ -99,6 +102,16 @@ anzahlAllerDateien(DirID, Anzahl) :-
 listeAllerDateinamen(DirID,Liste),
 length(Liste,Anzahl).
 
+
+% Änderungsdatum eines Verzeichnisses auf das aktuelle Datum setzen
+% Fehlerbehandlung inklusive
+
+% TODO Fehlerbehandlung 
+
+setzeAenderungsdatumAktuell(DirID, Fehlercode) :- 
+
+retract(directory(DirID,Name,ParentID,DateCreated,_)),
+assert(directory(DirID,Name,ParentID,DateCreated,date(29,10,1991))).
 
 
 
