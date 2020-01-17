@@ -5,29 +5,60 @@
 % 'Mutter' und 'Kind' sind Argumentpositionen,
 % so dass 'Mutter' die Mutter von 'Kind' ist.
 
-mutter_von( marie , hans ).
-mutter_von( marie , helga ).
-mutter_von( julia , otto ).
-mutter_von( barbara , klaus ).
-mutter_von( barbara , andrea ).
-mutter_von( charlotte , barbara ).
-mutter_von( charlotte , magdalena ).
+%mutter_von( marie , hans ).
+%mutter_von( marie , helga ).
+%mutter_von( julia , otto ).
+%mutter_von( barbara , klaus ).
+%mutter_von( barbara , andrea ).
+%mutter_von( charlotte , barbara ).
+%mutter_von( charlotte , magdalena ).
 
 
 % vater_von( Vater , Kind ).
 % 'Vater' und 'Kind' sind Argumentpositionen,
 % so dass 'Vater' die Vater von 'Kind' ist.
 
-vater_von( otto , hans ).
-vater_von( otto , helga ).
-vater_von( gerd , otto ).
-vater_von( johannes , klaus ).
-vater_von( johannes , andrea).
-vater_von( walter , barbara ).
-vater_von( walter , magdalena ).
+%vater_von( otto , hans ).
+%vater_von( otto , helga ).
+%vater_von( gerd , otto ).
+%vater_von( johannes , klaus ).
+%vater_von( johannes , andrea).
+%vater_von( walter , barbara ).
+%vater_von( walter , magdalena ).
 
 mutter_von(birgit,inga).
+mutter_von(hildegard,birgit).
+mutter_von(ursula,hildegard).
 mutter_von(birgit,arne).
 mutter_von(inga,emma).
+vater_von(gernot,birgit).
+vater_von(gernot,birgit).
 vater_von(flo,emma).
+vater_von(heinrich,flo).
+vater_von(heinz,heinrich).
+
+
+% Alle Vorfahren berechnen 
+
+vorfahrenVon(Vorfahre,Nachkommende) :- 
+
+vater_von(Vorfahre,Nachkommende)|
+mutter_von(Vorfahre,Nachkommende).
+
+% Jüngsten gemeinsamen Vorfahren zweier Personen berechnen
+
+%juengsterGemeinsamerVorfahre(Person1,Person2,JüngsterVorfahre) :- 1.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
