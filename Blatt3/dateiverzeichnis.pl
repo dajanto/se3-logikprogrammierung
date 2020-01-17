@@ -66,14 +66,7 @@ directory(DirID,DirName,_,_,_).
 verzeichnisnameZuNameIDAbove(DirName,DirNameAbove,ParentID) :- 
 
 directory(_,DirName,ParentID,_,_),
-directory(_,DirNameAbove,ParentID1,_,_),
-ParentID1 is ParentID - 1.
-
-% **Nutzbare Methoden:**
-% Dateiname zu Dateischlüssel
-% Verzeichnisname zu Verzeichnisschlüssel
-% Dateiname zu Name und Schlüssel des Verzeichnisses
-% Verzeichnisname zu Verzeichnisname und Schlüssel des obigen Verzeichnisses
+directory(ParentID,DirNameAbove,_,_,_).
 
 % Liste aller Dateinamen eines Verzeichnisses 
 % Identifikation per ID
@@ -84,21 +77,31 @@ findall(FileNames,
 		file(_,DirID,FileNames,_,_,_),
 		DateinamenListe).
 
+
 % Liste aller Namen der Unterverzeichnisse eines Verzeichnisses 
 % Identifikation per ID
 
-%verzeichnisnameZuNameIDAbove(bilder,Name,ID).
-%name = root, id = 1
+listeAllerUnterverzeichnisse(DirName,Unterverzeichnisliste) :-
 
-listeAllerUnterverzeichnisse(DirID,Unterverzeichnisliste) :-
+findall(DirNameName, 
 
-findall(DirName, 
-
-		(
-		directory(DirID,DirName,_,_,_),
-		directory(DirID1,DirName,_,_,_),DirID < DirID1
-		),
+		(directory(_,DirNameName,ID,_,_),
+		verzeichnisnameZuID(DirName,ID)),
 
 		Unterverzeichnisliste).
+
+
+% Anzahl aller Dateien in einem bestimmten Verzeichnis
+% Identifikation per ID
+
+anzahlAllerDateien(DirID, Anzahl) :-
+
+listeAllerDateinamen(DirID,Liste),
+length(Liste,Anzahl).
+
+
+
+
+
 
 
