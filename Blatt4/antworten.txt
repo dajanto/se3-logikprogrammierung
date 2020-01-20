@@ -1,0 +1,36 @@
+Prüfung auf Symmetrie, Reflexivität, Transitivität und Funktionalität
+
+A Geburtsdatum von B
+
+S: Ein Jahr kann kein Geburtsdatum eines anderen Jahrs sein.  
+R: Ein Mensch B kann kein Geburtsdatum von eines Datums A sein.
+T: Ein Mensch kann kein Geburtsdatum eines Geburtsdatums sein.
+F: Ein Mensch kann nur ein Geburtsjahr haben. 
+
+A ist im Turnier gegen B angetreten
+
+S: B ist auch gegen A angetreten in einem Turnier.
+R: Man kann nicht gegen sich selbst antreten.
+T: A ist nicht zwangsweise gegen C auch angetreten.
+F: Man kann an vielen Turnieren teilnehmen. 
+
+A ist eine Teilmenge von B
+
+S: B ist nicht zwangsweise eine Teilmenge von A.
+R: A ist eine Teilmenge von A.
+T: A ist auch eine Teilmenge von C.
+F: A kann Teilmenge vieler Teilmengen sein.
+
+A und B spielen eine Rolle im selben Film
+
+S: Ja.
+R: Ja, A spielt mit sich selbst im selben Film.
+T: Wenn A und B im selben Film spielen und B und C, dann auch A und C.
+F: Man kann in vielen Filmen mitspielen.
+
+A ist kongruent zu B
+
+S: Ja.
+R: Ja. 
+T: Ja. 
+F: Man kann kongruent zu vielen Dingen sein.
