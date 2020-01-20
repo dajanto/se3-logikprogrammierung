@@ -102,9 +102,30 @@ lift(zirbenbahn,tlzirben,bgzirben,10).
 
 
 % Ermittelt die höchsten Punkte von denen alle Pisten bergab fahren
-% bzw. die niedrigsten, von denen man nicht weiter inst Tal fahren kann.
 
-niedrigstePisten() :-
+hoechsterPunkt(HP) :- 
+
+strecke(_,HP,_,_,_),
+\+ strecke(_,_,HP,_,_).
+
+% Ermittelt die niedrigsten Punkte, von denen man nicht weiter ins Tal fahren kann.
+
+niedrigsterPunkt(NP) :- 
+
+strecke(_,_,NP,_,_),
+\+ strecke(_,NP,_,_,_).
+
+
+% Ist zwischen Start und Ziel eine durchgängig zu befahrende Strecke
+
+istErreichbar(Start,Ziel) :-
+
+
+
+
+
+
+
 
 
 
