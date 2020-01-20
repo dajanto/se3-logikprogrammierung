@@ -108,12 +108,36 @@ length(Liste,Anzahl).
 
 % TODO Fehlerbehandlung 
 
-setzeAenderungsdatumAktuell(DirID, Fehlercode) :- 
+setzeAenderungsdatumAktuell(DirID) :- 
+
 
 retract(directory(DirID,Name,ParentID,DateCreated,_)),
 assert(directory(DirID,Name,ParentID,DateCreated,date(29,10,1991))).
 
+%catch(setzeAenderungsdatumAktuell(DirID,Fehlercode)), 
+%Fehlercode,
+%format('Verzeichnis exsitiert nicht!',Fehlercode),
+%retract(directory(DirID,Name,ParentID,DateCreated,_)),
+%assert(directory(DirID,Name,ParentID,DateCreated,date(29,10,1991))).
 
+
+% Hinzufügen eines Unterverzeichnisses
+
+% TODO 
+% Doppeleintragungen verhindern 
+% Modifikationsdaten aktualisieren
+
+unterverzeichnisHinzufuegen(DirID,Name) :- 
+
+dirIDerhoehen(ID),
+assert(directory(ID,Name,DirID,_,_)).
+
+
+% IDs hochzählen
+
+dirIDerhoehen(ID) :- 
+
+flag(directories,ID,ID+1).
 
 
 
