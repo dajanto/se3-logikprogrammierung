@@ -101,7 +101,7 @@ lift(zollberglift,tlzollberg,bgzollberg,9).
 lift(zirbenbahn,tlzirben,bgzirben,10).
 
 
-% Ermittelt die höchsten Punkte von denen alle Pisten bergab fahren
+% Ermittelt die höchsten Punkte von denen alle Pisten bergab führen
 
 hoechsterPunkt(HP) :- 
 
@@ -120,12 +120,38 @@ strecke(_,_,NP,_,_),
 
 istErreichbar(Start,Ziel) :-
 
+strecke(_,Start,Ziel,_,_).
+
+istErreichbar(Start,Ziel) :-
+
+strecke(_,Start,Zwischenstop,_,_),
+istErreichbar(Zwischenstop,Ziel).
 
 
 
 
+% Alle Orte im Skigebiet ermitteln, die Start oder Ziel sind
+
+dajantoOrt(Result) :-
+
+findall([Start,Ziel], strecke(_,Start,Ziel,_,_),Liste),
+flatten(Liste,Result).
 
 
 
+start_ort(Ort) :-
+ strecke(Id1 , Ort , _ , _ , _ ) ,
+ not((strecke(Id2,Ort,_,_,_),
+ Id1 @>Id2)).
 
+ end_ort(Ort) :-
+ strecke(Id1,_,Ort,_,_),
+ not((strecke(Id2,_,Ort,_,_),
+ Id1 @> Id2 ) ) .
 
+ ort(Ort) :-
+ start_ort(Ort).
+
+ ort(Ort) :-
+ end_ort(Ort),
+ not(start_ort(Ort)).

@@ -145,8 +145,21 @@ flag(directories,ID,ID+1).
 
 % TODO
 
-%zugriffspfadExistent(DirID1, DirID2, Result) :-
+% Params:
+% Geht:
+%directory(2,bilder,1,date(2007,5,2),date(2009,11,2)).
+%directory(6,hochzeit,2,date(2008,1,27),date(2008,1,31)).
 
+% Geht nicht:
+%directory(2,bilder,1,date(2007,5,2),date(2009,11,2)).
+%directory(4,dokumente,1,date(2007,5,2),date(2009,11,5)).
+
+zugriffspfadExistent(ParentID, DirID) :-
+
+directory(DirID,_,ParentID,_,_),
+directory(ParentID,_,DirID,_,_).
+
+%zugriffspfadExistent(ParentID, DirID) :-
 
 
 
