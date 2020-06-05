@@ -8,9 +8,13 @@
 %datum(J,M,T)
 
 leser(sorglos,susi,1337,hein-fink-straße,1991).
+leser(sorglos,susi,1338,hein-fink-straße,1993).
 leser(mann,manfred,8171,kröger-fink-weg,1978).
-
-ausleihe(1818,1337,datum(1,1,1)).
+leser(mann,manfred,8172,kröger-fink-weg,1913).
+ausleihe(123,1337,datum(1,1,1)).
+ausleihe(1818,1338,datum(1,1,1)).
+ausleihe(123,8171,datum(1,1,1)).
+ausleihe(1818,8172,datum(1,1,1)).
 
 vorbestellung(bug17456,8171).
 
@@ -69,7 +73,79 @@ differenz(datum(T,M,J), datum(T1,M1,J1), Differenz) :-
 	Differenz is abs(TT+MM+JJ).
 
 
-% c)
+% d)
+
+leihfrist(datum(T,M,J),Leihfrist,Lesernummer, Überschreitungsliste) :-
+
+findall(Lesernummer,
+
+(leser(_,_,Lesernummer,_,_),
+ausleihe(_,Lesernummer,Ausleihdatum),
+differenz(datum(T,M,J),Ausleihdatum, Differenz),
+Differenz >= Leihfrist), 
+
+Überschreitungsliste).
+
+
+% e)
+
+mahnungen(Lesernummer, datum(T,M,J), maxLeihfrist, Signaturenliste, Signaturenlistenlänge) :-
+
+findall(Signatur,
+
+(leihfrist(datum(T,M,J),maxLeihfrist,Lesernummer,Überschreitungsliste),
+member(Lesernummer,Überschreitungsliste),
+ausleihe(Signatur,Lesernummer,_)),
+
+Signaturenliste),
+
+length(Signaturenliste,Signaturenlistenlänge).
+
+
+% 3.
+
+% a)
+% Nicht ganz richtig wahrscheinlich
+
+mahnendeLeserGesamt(datum(T,M,J),Leihfrist,SortedList) :-
+
+findall((Name,Vorname,Adresse,Signaturenlistenlänge,Signaturenliste),
+
+(mahnungen(Lesernummer,datum(T,M,J),Leihfrist,Signaturenliste,Signaturenlistenlänge),
+member(Lesernummer,Signaturenliste),
+length(Signaturenliste,Signaturenlistenlänge),
+leser(Name,Vorname,Lesernummer,Adresse,_)
+),
+
+Liste),
+sort(Liste,SortedList).
+
+
+% b)
+
+%ausleihe(Signatur,Lesernummer,Ausleihdatum)
+%vorbestellung(Signatur,Lesernummer)
+%leser(Name,Vorname,Lesernummer,Adresse,Geburtsjahr)
+%datum(J,M,T)
+
+% TODO
+%altersgruppen(Lesernummer, Grenze, Anzahl) :-
+%
+%anzahlLeserBis(Lesernummer,Grenze,Anzahl).
+
+
+anzahlLeserBis(Lesernummer, AktuellesJahr, Altersgrenze, Anzahl) :-
+
+findall(Lesernummer,
+
+(leser(_,_,Lesernummer,_,Geburtsjahr),
+ausleihe(_,Lesernummer,_),
+Alter is AktuellesJahr - Geburtsjahr,
+Alter < Altersgrenze),
+
+Liste),
+sort(Liste,SortedListe),
+length(SortedListe,Anzahl).
 
 
 
