@@ -128,13 +128,26 @@ sort(Liste,SortedList).
 %leser(Name,Vorname,Lesernummer,Adresse,Geburtsjahr)
 %datum(J,M,T)
 
-% TODO
-%altersgruppen(Lesernummer, Grenze, Anzahl) :-
+% Rekursives Beispiel
+länge([],0).
+länge([_|T],N) :- 
+	länge(T,N1),
+	N is N1 + 1.
+
+% TODO 
+% [0,10,14,18,28,38,50,65,500]
+%altersgruppen([],0).
+%altersgruppen([_|Rest], Ergebnis) :-
 %
-%anzahlLeserBis(Lesernummer,Grenze,Anzahl).
+%	anzahlLeserBis(_,2020,Altersgrenze, Ergebnis).
+%
+%	altersgruppen(Rest,Ergebnis).
 
 
-anzahlLeserBis(Lesernummer, AktuellesJahr, Altersgrenze, Anzahl) :-
+% Beispielaufruf
+% anzahlLeserBis(L,2020,60,Ergebnis).
+
+anzahlLeserBis(Lesernummer, AktuellesJahr, Altersgrenze, Ergebnis) :-
 
 findall(Lesernummer,
 
@@ -144,9 +157,7 @@ Alter is AktuellesJahr - Geburtsjahr,
 Alter < Altersgrenze),
 
 Liste),
-sort(Liste,SortedListe),
-length(SortedListe,Anzahl).
-
+length(Liste,Ergebnis).
 
 
 
