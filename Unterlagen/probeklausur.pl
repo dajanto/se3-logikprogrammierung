@@ -9,8 +9,8 @@
 
 leser(sorglos,susi,1337,hein-fink-straße,1991).
 leser(sorglos,susi,1338,hein-fink-straße,1993).
-leser(mann,manfred,8171,kröger-fink-weg,1978).
-leser(mann,manfred,8172,kröger-fink-weg,1913).
+leser(mann,manfred,8171,kroeger-fink-weg,1978).
+leser(mann,manfred,8172,kroeger-fink-weg,1913).
 ausleihe(123,1337,datum(1,1,1)).
 ausleihe(1818,1338,datum(1,1,1)).
 ausleihe(123,8171,datum(1,1,1)).
@@ -75,31 +75,31 @@ differenz(datum(T,M,J), datum(T1,M1,J1), Differenz) :-
 
 % d)
 
-leihfrist(datum(T,M,J),Leihfrist,Lesernummer, Überschreitungsliste) :-
+leihfrist(datum(T,M,J),Leihfrist,Lesernummer, Ueberschreitungsliste) :-
 
-findall(Lesernummer,
+	findall(Lesernummer,
 
-(leser(_,_,Lesernummer,_,_),
-ausleihe(_,Lesernummer,Ausleihdatum),
-differenz(datum(T,M,J),Ausleihdatum, Differenz),
-Differenz >= Leihfrist), 
+	(leser(_,_,Lesernummer,_,_),
+	ausleihe(_,Lesernummer,Ausleihdatum),
+	differenz(datum(T,M,J),Ausleihdatum, Differenz),
+	Differenz >= Leihfrist), 
 
-Überschreitungsliste).
+	Ueberschreitungsliste).
 
 
 % e)
 
-mahnungen(Lesernummer, datum(T,M,J), maxLeihfrist, Signaturenliste, Signaturenlistenlänge) :-
+mahnungen(Lesernummer, datum(T,M,J), maxLeihfrist, Signaturenliste, Signaturenlistenlaenge) :-
 
-findall(Signatur,
+	findall(Signatur,
 
-(leihfrist(datum(T,M,J),maxLeihfrist,Lesernummer,Überschreitungsliste),
-member(Lesernummer,Überschreitungsliste),
-ausleihe(Signatur,Lesernummer,_)),
+	(leihfrist(datum(T,M,J),maxLeihfrist,Lesernummer,Ueberschreitungsliste),
+	member(Lesernummer,Ueberschreitungsliste),
+	ausleihe(Signatur,Lesernummer,_)),
 
-Signaturenliste),
+	Signaturenliste),
 
-length(Signaturenliste,Signaturenlistenlänge).
+	length(Signaturenliste,Signaturenlistenlaenge).
 
 
 % 3.
@@ -109,16 +109,16 @@ length(Signaturenliste,Signaturenlistenlänge).
 
 mahnendeLeserGesamt(datum(T,M,J),Leihfrist,SortedList) :-
 
-findall((Name,Vorname,Adresse,Signaturenlistenlänge,Signaturenliste),
+	findall((Name,Vorname,Adresse,Signaturenlistenlaenge,Signaturenliste),
 
-(mahnungen(Lesernummer,datum(T,M,J),Leihfrist,Signaturenliste,Signaturenlistenlänge),
-member(Lesernummer,Signaturenliste),
-length(Signaturenliste,Signaturenlistenlänge),
-leser(Name,Vorname,Lesernummer,Adresse,_)
-),
+	(mahnungen(Lesernummer,datum(T,M,J),Leihfrist,Signaturenliste,Signaturenlistenlnge),
+	member(Lesernummer,Signaturenliste),
+	length(Signaturenliste,Signaturenlistenlnge),
+	leser(Name,Vorname,Lesernummer,Adresse,_)
+	),
 
-Liste),
-sort(Liste,SortedList).
+	Liste),
+	sort(Liste,SortedList).
 
 
 % b)
@@ -129,14 +129,15 @@ sort(Liste,SortedList).
 %datum(J,M,T)
 
 % Rekursives Beispiel
-länge([],0).
-länge([_|T],N) :- 
-	länge(T,N1),
+laenge([],0).
+
+laenge([_|T],N) :- 
+	laenge(T,N1),
 	N is N1 + 1.
 
 % TODO 
 % [0,10,14,18,28,38,50,65,500]
-%altersgruppen([],0).
+%altersgruppen([],0).  %
 %altersgruppen([_|Rest], Ergebnis) :-
 %
 %	anzahlLeserBis(_,2020,Altersgrenze, Ergebnis).
@@ -146,32 +147,67 @@ länge([_|T],N) :-
 
 % Beispielaufruf
 % anzahlLeserBis(L,2020,60,Ergebnis).
+% Hilfsfunktion für den rekursiven Aufruf
 
 anzahlLeserBis(Lesernummer, AktuellesJahr, Altersgrenze, Ergebnis) :-
 
-findall(Lesernummer,
+	findall(Lesernummer,
 
-(leser(_,_,Lesernummer,_,Geburtsjahr),
-ausleihe(_,Lesernummer,_),
-Alter is AktuellesJahr - Geburtsjahr,
-Alter < Altersgrenze),
+	(leser(_,_,Lesernummer,_,Geburtsjahr),
+	ausleihe(_,Lesernummer,_),
+	Alter is AktuellesJahr - Geburtsjahr,
+	Alter < Altersgrenze),
 
-Liste),
-length(Liste,Ergebnis).
+	Liste),
+	length(Liste,Ergebnis).
+
+
+
+
+% Rekursionstests
+
+% Liste rekurisv abschneiden
+listeAbschneiden([],0).  
+
+listeAbschneiden([H|T], Ergebnis) :-
+	listeAbschneiden(T,Ergebnis).
+
+
+% Länge einer Liste ermitteln 
+laengeEinerListe([],0).  
+
+laengeEinerListe([H|T], Ergebnis) :-
+	laengeEinerListe(T,Ergebnis1),
+	Ergebnis is Ergebnis1 + 1.
+
+
+% Liste addieren
+sumList([],0).  
+
+sumList([H|T], Ergebnis) :-
+	sumList(T, Ergebnis1),
+	Ergebnis is Ergebnis1 + H.
+
+
+% Beispiele für Head/Tail-Getter
+gibHead([Head|_],Head).
+
+gibTail([_|Tail],Tail).
+
 
 
 
 % 4.
 
-p1([ ],[ ]).
+p1([],[]).
 p1([A,_|X],[A,_|Y]) :- p1(X,Y).
 
-p2([ ],[ ]).
+p2([],[]).
 p2([A],[A]).
 p2([A,_|X],[A,_|Y]) :- p2(X,Y).
 
-p3([ ],[ ]).
-p3([_],[ ]).
+p3([],[]).
+p3([_],[]).
 p3([A,_|X],[A,_|Y]) :- p3(X,Y).
 
 
