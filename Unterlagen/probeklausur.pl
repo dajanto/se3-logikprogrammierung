@@ -221,4 +221,23 @@ p3([A,_|X],[A,_|Y]) :- p3(X,Y).
 
 
 
+% Racket-Funktion nach Prolog übersetzen
+% Übernehme die ersten n Stellen einer Liste, schneide den Rest ab
+% TODO
+uebernehmeStellen([],0).
+
+uebernehmeStellen([H|T], Count) :- 
+	
+	append(H,[],Liste),
+	uebernehmeStellen(T,Count),
+	Count is Count - 1.
+
+	
+	
+
+
+
+
+
+
 
