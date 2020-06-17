@@ -72,26 +72,112 @@ welcheBilderInMehrerenAlben(Nr) :-
 
 % 5.
 
-% bild(Bild_Nr, Titel, Aufnahmedatum, Dateigroesse, Bewertung, Tags)
-% album(Name, Bilder).
-
+% TODO
 einzigartigeTags(Nr) :-
 
-	bild(Nr,_,_,_,_,Tags).
-	
+	bild(Nr,_,_,_,_,Tags),
+	bild(Nr1,_,_,_,_,Tags1),
+
+	member(Tag, Tags),
+	not(member(Tag, Tags1)),
+
+	Nr \= Nr1.
 
 	
-
-
-
-
-
 
 
 
 
 % Aufgabe 4 
 
+% bild(Bild_Nr, Titel, Aufnahmedatum, Dateigroesse, Bewertung, Tags)
+% album(Name, Bilder).
+
+% haeufigkeit(regen, [regen, sonne, mond, regen], Anzahl).
+
+haeufigkeit(_,[],0).
+	
+haeufigkeit(Tag, [H|T], Anzahl) :-
+	% TODO 
+	% Idee: append als cons benutzen
+	
+	haeufigkeit(Tag,T,Anzahl),
+	%Tag = H,
+	append(H,[_|H],Liste),
+	length(Liste,Anzahl1).
+
+
+
+% Endrekursiv
+haeufigkeitEND(_,[],0).
+
+haeufigkeitEND(Tag, [H|T], Anzahl) :-
+
+	haeufigkeit(Tag, T, Anzahl1),
+	% TODO Geht nur bei Regen = Regen, nicht bei Regen = Mond
+	H = Tag,
+	Anzahl is Anzahl1 + 1.
+	
+
+% Anzahl eines Tags in einer Liste
+haeufigkeitHoehererOrdnung(Tag, Liste, Anzahl) :-
+	
+	findall(Tag,
+
+	member(Tag,Liste),
+
+	Tagliste),
+
+	length(Tagliste, Anzahl).
+
+
+% Alle Tags in einer Liste
+tags(Liste) :-
+	
+	findall(Tags,
+	(bild(_,_,_,_,_,Tagliste),
+	member(Tags,Tagliste)),
+	Liste).
+
+
+
+
+% Liste mit Häufigkeiten aller Tags (rekursive Lösung)
+verteilungRekursiv([],_,_).
+
+verteilungRekursiv([H|T], TagListe, AnzahlListe) :-
+
+	%tags(TagListe),
+	%sort(TagListe,SortedListe),
+
+	verteilungRekursiv(T,TagListe,AnzahlListe),
+	haeufigkeitHoehererOrdnung(H,TagListe, Anzahl),
+	append([Anzahl], AnzahlListe, AnzahlListe).
+
+
+
+
+% Liste mit Häufigkeiten aller Tags
+verteilung(Liste) :-
+
+	% Idee: 
+	% Pro Member der duplikatenfreien Liste schauen,
+	% wie oft das Member in der nicht-duplikatenfreien Liste auftaucht
+	% und eine entsprechende Liste erstellen
+
+	tags(TagListe),
+	sort(TagListe,SortedListe),
+
+	findall(Anzahl,
+
+	haeufigkeitHoehererOrdnung(Tag,TagListe,Anzahl),
+
+	Liste).
+
+
+
+
+		
 
 
 
