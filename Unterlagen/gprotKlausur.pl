@@ -177,11 +177,6 @@ verteilung(Liste) :-
 
 
 
-		
-
-
-
-
 
 
 % Aufgabe 5 
@@ -192,3 +187,17 @@ verteilung(Liste) :-
 
 
 % Aufgabe 6 
+
+% Siehe probeklausur.rkt für Racketkram
+
+sum_list_rekursiv([], 0).
+
+sum_list_rekursiv([H|T], Summe) :-
+	sum_list_rekursiv(T,Summe1),
+	Summe is Summe1 + H.
+
+% oder MEMEiger (Es geht ja nur um Funktionalität, unabhängig von Paradigmen, so sollte die Aufgabe zu verstehen sein)
+sum_list(Liste,Summe) :- sumlist(Liste,Summe).
+
+
+
