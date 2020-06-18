@@ -101,6 +101,7 @@ einzigartigeTags(Nr) :-
 
 % haeufigkeit(regen, [regen, sonne, mond, regen], Anzahl).
 
+
 % Anzahl eines Tags in einer Liste (linearrekursiv)
 haeufigkeit(_,[],0).
 	 
@@ -114,15 +115,29 @@ haeufigkeit(Tag, [H|T], Anzahl) :-
 
 
 
+
+% haeufigkeitEND in korrekt
+count(_, [], 0).
+
+count(X, [X | T], N) :-
+  !, count(X, T, N1),
+  N is N1 + 1.
+
+count(X, [_ | T], N) :-
+  count(X, T, N). 
+
+
+
+
 % Anzahl eines Tags in einer Liste (endrekursiv)
 haeufigkeitEND(_,[],0).
 
-haeufigkeitEND(Tag, [H|T], Anzahl) :-
+haeufigkeitEND(Tag, [Tag|T], Anzahl) :-
 
 	% TODO 
 
-	haeufigkeit(Tag1, T, Anzahl1),
-	H = Tag1,
+	haeufigkeit(Tag, T, Anzahl1),
+	H = Tag,
 	Anzahl is Anzahl1 + 1.
 	
 
@@ -136,6 +151,7 @@ haeufigkeitHoehererOrdnung(Tag, Liste, Anzahl) :-
 	Tagliste),
 
 	length(Tagliste, Anzahl).
+
 
 
 % 2.
