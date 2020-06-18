@@ -31,6 +31,10 @@ album('Album 1', [16273,18247, 14724, 18274, 58194]).
 album('Album 2', [16273,17287, 18237, 17842, 17298, 15272]).
 album('Album 3', [16273, 15256]).
 
+subtag(urlaub, winterurlaub).
+subtag(urlaub, sommerurlaub).
+subtag(sommerurlaub, bootstour).
+
 % 1.
 wievieleBilder2018(Anzahl) :-
 
@@ -90,32 +94,35 @@ einzigartigeTags(Nr) :-
 
 % Aufgabe 4 
 
+% 1.
+
 % bild(Bild_Nr, Titel, Aufnahmedatum, Dateigroesse, Bewertung, Tags)
 % album(Name, Bilder).
 
 % haeufigkeit(regen, [regen, sonne, mond, regen], Anzahl).
 
+% Anzahl eines Tags in einer Liste (linearrekursiv)
 haeufigkeit(_,[],0).
-	
+	 
 haeufigkeit(Tag, [H|T], Anzahl) :-
+
 	% TODO 
-	% Idee: append als cons benutzen
+	% Idee: append als cons benutzen?
 	
-	haeufigkeit(Tag,T,Anzahl),
-	%Tag = H,
-	append(H,[_|H],Liste),
+	haeufigkeit(Tag,T,Anzahl1),
 	length(Liste,Anzahl1).
 
 
 
-% Endrekursiv
+% Anzahl eines Tags in einer Liste (endrekursiv)
 haeufigkeitEND(_,[],0).
 
 haeufigkeitEND(Tag, [H|T], Anzahl) :-
 
-	haeufigkeit(Tag, T, Anzahl1),
-	% TODO Geht nur bei Regen = Regen, nicht bei Regen = Mond
-	H = Tag,
+	% TODO 
+
+	haeufigkeit(Tag1, T, Anzahl1),
+	H = Tag1,
 	Anzahl is Anzahl1 + 1.
 	
 
@@ -131,6 +138,8 @@ haeufigkeitHoehererOrdnung(Tag, Liste, Anzahl) :-
 	length(Tagliste, Anzahl).
 
 
+% 2.
+
 % Alle Tags in einer Liste
 tags(Liste) :-
 	
@@ -141,6 +150,7 @@ tags(Liste) :-
 
 
 
+% 3.
 
 % Liste mit Häufigkeiten aller Tags (rekursive Lösung)
 verteilungRekursiv([],_,_).
@@ -176,12 +186,31 @@ verteilung(Liste) :-
 
 
 
-
-
-
 % Aufgabe 5 
 
+% 1.
 
+%subtag(urlaub, winterurlaub).
+%subtag(urlaub, sommerurlaub).
+%subtag(sommerurlaub, bootstour).
+
+% Bestimme ob T1 Oberbegriff von T2 ist
+oberbegriff(T1,T2) :- 
+	subtag(T1,T2).
+
+oberbegriff(T1,T2) :-
+	subtag(T1,T3),
+	oberbegriff(T3,T2).
+	
+
+% 2.
+
+% TODO 
+memberMod(X,Y) :-
+	member(X,Y),
+	oberbegriff(Y,X).
+
+% 3.
 
 
 
@@ -193,11 +222,10 @@ verteilung(Liste) :-
 sum_list_rekursiv([], 0).
 
 sum_list_rekursiv([H|T], Summe) :-
+
 	sum_list_rekursiv(T,Summe1),
 	Summe is Summe1 + H.
 
-% oder MEMEiger (Es geht ja nur um Funktionalität, unabhängig von Paradigmen, so sollte die Aufgabe zu verstehen sein)
-sum_list(Liste,Summe) :- sumlist(Liste,Summe).
-
-
-
+% oder MEMEiger 
+sum_list(Liste,Summe) :- 
+	sumlist(Liste,Summe).
