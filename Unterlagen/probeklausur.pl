@@ -7,8 +7,9 @@
 %leser(Name,Vorname,Lesernummer,Adresse,Geburtsjahr)
 %datum(J,M,T)
 
-leser(sorglos,susi,1337,hein-fink-straße,1991).
-leser(sorglos,susi,1338,hein-fink-straße,1993).
+leser(sorglos,susi,1337,hein-fink-straße,1950).
+leser(sorglos,susi,1337,hein-fink-straße,1950).
+leser(sorglos,susi,1338,hein-fink-straße,1933).
 leser(mann,manfred,8171,kroeger-fink-weg,1978).
 leser(mann,manfred,8172,kroeger-fink-weg,1913).
 ausleihe(123,1337,datum(1,1,1)).
@@ -34,16 +35,18 @@ vorbestellung(bug17456,8171).
 %\+ vorbestellung(Signatur,_).
 
 % d)
+
 %leser(Name,Vorname,Lesernummer,Adresse,_),
-%ausleihe(Signatur,Lesernummer,datum(T,M,J)),
-%T < 7, 
-%M < 1, 
-%J < 2007.
+%ausleihe(Signatur,Lesernummer,datum(J,M,T)),
+%(J < 2007 ;
+%(T < 7, 
+%M = 1,
+%J = 2007)).
 
 
 % e)
 
-anzahlLesernummernAelter60(Lesernummer, Anzahl) :-
+anzahlLesernummernAelter60(Anzahl) :-
 
 	findall(
 
@@ -54,21 +57,24 @@ anzahlLesernummernAelter60(Lesernummer, Anzahl) :-
 	Geburtsjahr < 1960),
 	Liste),
 
-	length(Liste,Anzahl).
+	sort(Liste,Listeliste),
+	length(Listeliste,Anzahl).
 
 % 2.
 
 % a)
 
-	% Aufgabenstellung ungenau
-	%ordnung(D,D1) :- D @< D1.
+% Aufgabenstellung ungenau, Lösung nur notiert
+ordnung(D,D1) :- 
+
+	D @< D1.
 
 % b)
 
 differenz(datum(T,M,J), datum(T1,M1,J1), Differenz) :-
 
 	TT is T - T1,
-	MM is M*30 - M1 * 30,
+	MM is M * 30 - M1 * 30,
 	JJ is J * 360 - J1 * 360,
 	Differenz is abs(TT+MM+JJ).
 

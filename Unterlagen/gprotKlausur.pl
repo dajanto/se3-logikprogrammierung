@@ -114,21 +114,6 @@ haeufigkeit(Tag, [H|T], Anzahl) :-
 	length(Liste,Anzahl1).
 
 
-
-
-% haeufigkeitEND in korrekt
-count(_, [], 0).
-
-count(X, [X | T], N) :-
-  !, count(X, T, N1),
-  N is N1 + 1.
-
-count(X, [_ | T], N) :-
-  count(X, T, N). 
-
-
-
-
 % Anzahl eines Tags in einer Liste (endrekursiv)
 haeufigkeitEND(_,[],0).
 
