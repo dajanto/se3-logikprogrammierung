@@ -150,6 +150,17 @@ tags(Liste) :-
 	Liste).
 
 
+wiederholen123([],ReversedListe).
+wiederholen123([H|T],ReversedListe) :-
+	wiederholen123(T,ReversedListe),
+	append(T,H,Liste).
+
+
+reverse([],Akku,Akku).
+reverse([H|T],Akku, Output) :-
+
+	append([H], Akku, Akku_Update),
+	reverse(T, Akku_Update, Output).
 
 % 3.
 
@@ -162,28 +173,24 @@ verteilungRekursiv([H|T], TagListe, AnzahlListe) :-
 	%sort(TagListe,SortedListe),
 
 	verteilungRekursiv(T,TagListe,AnzahlListe),
-	haeufigkeitHoehererOrdnung(H,TagListe, Anzahl),
+	haeufigkeit(
 	append([Anzahl], AnzahlListe, AnzahlListe).
 
 
-
-
 % Liste mit Häufigkeiten aller Tags
-verteilung(Liste) :-
+% TODO
+verteilung(_,[],Akku,Akku). 
+verteilung(TagListe, [H|T] ,Akku, Result) :-
 
-	% Idee: 
-	% Pro Member der duplikatenfreien Liste schauen,
-	% wie oft das Member in der nicht-duplikatenfreien Liste auftaucht
-	% und eine entsprechende Liste erstellen
+	haeufigkeit(H,TagListe,Anzahl),
+	%append([H,Anzahl],Akku,Akku_Update),
+	append(Anzahl,Akku,Akku_Update),
+	verteilung(TagListe,T, Akku_Update,Result).
 
+verteilungAufruf(TagListe,SortedListe) :- 	
 	tags(TagListe),
 	sort(TagListe,SortedListe),
-
-	findall(Anzahl,
-
-	haeufigkeitHoehererOrdnung(Tag,TagListe,Anzahl),
-
-	Liste).
+	verteilung(TagListe,SortedListe,[],Result).
 
 
 
