@@ -141,6 +141,7 @@ haeufigkeitHoehererOrdnung(Tag, Liste, Anzahl) :-
 
 % 2.
 
+
 % Alle Tags in einer Liste
 tags(Liste) :-
 	
@@ -150,10 +151,12 @@ tags(Liste) :-
 	Liste).
 
 
+
 wiederholen123([],ReversedListe).
 wiederholen123([H|T],ReversedListe) :-
 	wiederholen123(T,ReversedListe),
 	append(T,H,Liste).
+
 
 
 reverse([],Akku,Akku).
@@ -164,33 +167,21 @@ reverse([H|T],Akku, Output) :-
 
 % 3.
 
-% Liste mit Häufigkeiten aller Tags (rekursive Lösung)
-verteilungRekursiv([],_,_).
-
-verteilungRekursiv([H|T], TagListe, AnzahlListe) :-
-
-	%tags(TagListe),
-	%sort(TagListe,SortedListe),
-
-	verteilungRekursiv(T,TagListe,AnzahlListe),
-	haeufigkeit(
-	append([Anzahl], AnzahlListe, AnzahlListe).
-
-
 % Liste mit Häufigkeiten aller Tags
-% TODO
-verteilung(_,[],Akku,Akku). 
-verteilung(TagListe, [H|T] ,Akku, Result) :-
+verteilung(_,[], Akku, Akku). 
 
-	haeufigkeit(H,TagListe,Anzahl),
-	%append([H,Anzahl],Akku,Akku_Update),
-	append(Anzahl,Akku,Akku_Update),
-	verteilung(TagListe,T, Akku_Update,Result).
+verteilung(TagListe, [H|T], Akku, Result) :-
 
-verteilungAufruf(TagListe,SortedListe) :- 	
+	haeufigkeitHoehererOrdnung(H, TagListe, Anzahl),
+	append([(H,Anzahl)], Akku, Akku_Update),
+	verteilung(TagListe, T, Akku_Update, Result).
+
+
+verteilungAufruf(TagListe,SortedListe,Akku,Result) :-	
+
 	tags(TagListe),
 	sort(TagListe,SortedListe),
-	verteilung(TagListe,SortedListe,[],Result).
+	verteilung(TagListe,SortedListe,Akku,Result).
 
 
 
