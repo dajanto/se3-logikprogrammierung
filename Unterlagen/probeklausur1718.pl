@@ -48,8 +48,6 @@
 
 % Aufgabe 3
 
-% TODO
-% Rekursionsaufgaben
 
 % Aufgabe 4
 
@@ -59,9 +57,22 @@
 
 % Aufgabe 5
 
-foobar([],0).
+% Ergebnis stimmt beim Debuggen, kein Output 
+foobar([],0, Liste,Liste).
 
-foobar([_|T],Y) :-
-	
-	!, foobar(T,Y),
-	Y is Y - 1.
+foobar([H|T],Count, Liste, Result) :-
+
+	append(Liste,[H],Liste1),
+	Count1 is Count - 1,
+	foobar(T,Count, Liste1, Result).	
+
+
+
+% Ergebnis stimmt beim Debuggen, kein Output 
+foobarEnd([], 0, Akku, Akku).
+
+foobarEnd([H|T], Count, Akku, Result) :-
+
+	append(Akku, [H], Akku_Update),
+	Count1 is Count - 1,
+	foobarEnd(T,Count1, Akku_Update, Result).
