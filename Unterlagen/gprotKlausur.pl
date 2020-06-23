@@ -205,9 +205,56 @@ oberbegriff(T1,T2) :-
 % 2.
 
 % TODO 
-memberMod(X,Y) :-
-	member(X,Y),
-	oberbegriff(Y,X).
+%memberMod(X,Y) :-
+%	member(X,Y),
+%	oberbegriff(Y,X).
+
+
+member05(Tag1,Result) :-
+
+    findall(Unterbegriffe,
+
+            oberbegriff(Tag1,Unterbegriffe),
+
+            L1),
+    member(Result,L1).
+
+member06(T1,L1) :-
+
+    findall(Unterbegriffe,
+
+            oberbegriff(T1,Unterbegriffe),
+
+            L2),
+
+	sort(L2,SortedList),
+
+	member07(L2, L1).
+
+
+member07([], L1, Akku, Akku).
+
+member07([H|T], L1, Akku, Result) :-
+
+	member(H,L1),
+	member07(T, L1, Akku_Update, Result).
+
+
+member010([], L1, false).
+
+member010([H|T], L1, Result) :-
+
+	!,(member(H,L1) -> Result = true),
+	member010(T, L1, Result). 
+
+
+
+
+
+
+
+
+
 
 % 3.
 
