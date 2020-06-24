@@ -42,8 +42,19 @@
 
 
 % d)
-% TODO
-% Richtungsunabhängigkeit für !, last, findall, member
+
+% member und last haben ?-Argumente
+
+% Richtungsabhängig
+
+% findall
+
+% Richtungsunabhängig
+
+% !
+% member
+% last
+
 
 
 % Aufgabe 3

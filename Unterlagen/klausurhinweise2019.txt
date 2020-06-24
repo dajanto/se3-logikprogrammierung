@@ -1,0 +1,34 @@
+Was in der Klausur dran kam:
+	- Komplexe Syntax-Verständnis-Vergleiche am Systemprompt (Man muss sagen, was das Ergebnis ist), Listenvergleiche, "Zuweisungen" von Variablen, mehrere Zuweisungen in einer Zeile, Bezugname anderer Variablen in anderen Listen (Head/Tail) auf andere Zuweisungen - insgesamt recht kompliziert hundertprozentig zu wissen, was richtig ist. 
+	- Anfragen mit findall, member, etc.
+	- bild(Nr,Dateigroesse,Bewertung,Tagliste)
+	- album(ID,Bildliste)
+	- Listenverarbeitung, rekursiv und nicht rekursiv mit Anfragen
+	- Verarbeitung verketteter Listen mit [H|T], Interpretationen
+
+% So sah die erste Prädikatsaufgabe aus
+inter([],_,[]).
+
+inter([H1|T1], L2, [H1|Res]) :-
+    member(H1, L2),
+    inter(T1, L2, Res).
+
+inter([_|T1], L2, Res) :-
+    inter(T1, L2, Res).
+
+test(X) :-
+
+	inter([1,3,5,2,4],[6,1,2],X),!.
+
+
+Man sollte sagen, was verbessert werden kann und anschließend es tatsächlich besser machen. In den darauffolgenden Aufgaben sollte man darauf aufbauend noch andere vorgefertigte Prädikate verwenden, ähnlich wie in der Übungsklausur, bloß noch komplexer. Ebenso wurde ein mathematisches Konzept abgefragt (auch im Skript zu finden).
+
+Aufgabe 1
+Systempromptreaktionen (10 Punkte)
+Aufgabe 2
+Prädikate bilden (12 Punkte)
+Aufgabe 3
+Funktionale Funktionen verstehen und interpretieren und in Prolog umsetzen, wie in der Probeklausur. Die in der Klausur vorkommenden Aufgaben waren tatsächlich einfacher als die in der Probeklausur.
+
+Generell kamen alle Elemente der Probeklausur dran, bloß in komplizierter.
+Man durfte alle Unterlagen verwenden und in der Klausur waren viele Funktionen gegeben, woran man sich orientieren konnte. 
