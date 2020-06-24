@@ -6,7 +6,8 @@ Was in der Klausur dran kam:
 	- Listenverarbeitung, rekursiv und nicht rekursiv mit Anfragen
 	- Verarbeitung verketteter Listen mit [H|T], Interpretationen
 
-% So sah die erste Prädikatsaufgabe aus
+
+% So könnte die Funktion der ersten Prädikatsaufgabe verbessert aussehen (getestet)
 inter([],_,[]).
 
 inter([H1|T1], L2, [H1|Res]) :-
