@@ -48,10 +48,10 @@
 % Richtungsabhängig
 
 % findall
+% !
 
 % Richtungsunabhängig
 
-% !
 % member
 % last
 
