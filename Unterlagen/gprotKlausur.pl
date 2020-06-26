@@ -30,6 +30,7 @@ bild(73635, 'Schietwetter', 2019-4-1, 1762837, 7, [regen, anne]).
 album('Album 1', [16273,18247, 14724, 18274, 58194]).
 album('Album 2', [16273,17287, 18237, 17842, 17298, 15272]).
 album('Album 3', [16273, 15256]).
+album('Album 4', [16273, 73635]).
 
 subtag(urlaub, winterurlaub).
 subtag(urlaub, sommerurlaub).
@@ -46,13 +47,16 @@ wievieleBilder2018(Anzahl) :-
 
 % 2.
 welcheAlbenLetztesJahr(Name) :-
+
 	album(Name,Bilder),
 	bild(Nr,_,2018-_-_,_,_,_),
 	member(Nr,Bilder).
 
 
+
 % 3.
 welcheBilderKeineTags(Nr) :-
+
 	bild(Nr,_,_,_,_,Tags),
 	length(Tags,L),
 	L = 0.
@@ -61,31 +65,29 @@ welcheBilderKeineTags(Nr) :-
 
 % 4.
 
-welcheBilderInMehrerenAlben(Nr) :-
+welcheBilderInMehrerenAlben() :-
 
-	bild(Nr,_,_,_,_,_),
-
-	album(Name,Bilder),
-	album(Name1,Bilder1),
-
-	member(Nr,Bilder),
-	member(Nr,Bilder1),
-
-	Name1 \= Name.
-
+	% TODO
 
 % 5.
 
-% TODO
+
 einzigartigeTags(Nr) :-
 
-	bild(Nr,_,_,_,_,Tags),
+	findall(Nr,
+
+	(bild(Nr,_,_,_,_,Tags),
 	bild(Nr1,_,_,_,_,Tags1),
 
-	member(Tag, Tags),
-	not(member(Tag, Tags1)),
+	member(Tag,Tags),
+	\+member(Tag,Tags1),
 
-	Nr \= Nr1.
+	Nr \= Nr1),
+
+	Liste),
+		
+	sort(Liste,Sorted),
+	member(NrNr,Sorted).
 
 	
 
