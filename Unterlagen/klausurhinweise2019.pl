@@ -116,35 +116,53 @@ subtag(urlaub, winterurlaub).
 
 
 oberbegriff(T1,T2) :-
+
 	subtag(T1,T2).
 
 
 oberbegriff(T1,T2) :-
+
 	subtag(T1,T3),
 	oberbegriff(T3,T2).
 
 
-member07(Tag,Liste) :-
+
+member07(X,Liste, Result) :-
 	
-	oberbegriff(Tag,Liste),
-	member(Tag,Liste).
+	member(X,Liste) ;
+	oberbegriff(X,Result).
 		
+
+
+
+% Closures braucht man in der Funktionalen Programmierung, um überhaupt Funktionen Höherer Ordnung möglich zu machen, also Funktionen an Funktionen zu übergeben. Beispielsweise (map (curry - 1) '(1 2 3)) oder (((curry - 1) 2).
+
+
+% blubb prüft ob Liste x und y gleich sind
+
+blubb([],_).
+
+blubb([H|T],Liste) :-
 	
+	member(H,Liste),
+	blubb(T,Liste).
+
+% Unterschied ist, dass in Racket die booleschen Rückgabewerte explizit definiert werden müssen mit mehreren ifs. In Prolog genügt ein einfacher Member-Aufruf.
 
 
 
+intersecten([],_,[]).
 
+intersecten([H|T],L1,[H|Result]) :-
 
+	member(H,L1),
+	intersecten(T,L1,Result).
 
+intersecten([_|T],L1,Result) :-
 
+	intersecten(T,L1,Result).
 
-
-
-
-
-
-
-
+% Verschattung stellt eine Gefahr in blockorientierten Programmiersprachen dar. Die Logikprogrammierung kennt dieses Problem nicht, da sie mit der Beschränkung des Gültigkeitsbereiches ein simples Skopusmodell verwendet.
 
 
 
